@@ -128,7 +128,7 @@ python main.py
 **The generated PDF includes a timestamped executive summary, a list of critical alerts, and a full maintenance schedule.**
 
 ### 📂 Project Structure
-
+```bash
 chemical-equipment-visualizer/
 ├── backend/                # Django Project
 │   ├── api/                # REST API Logic (Views, Models, Serializers)
@@ -141,5 +141,6 @@ chemical-equipment-visualizer/
 │   └── main.py             # Main Application Entry Point
 ├── .gitignore              # Git Exclusion Rules
 └── README.md               # Documentation
-
+```
 ### Developed for FOSSEE Internship Submission 2026
+
