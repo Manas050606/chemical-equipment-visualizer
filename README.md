@@ -1,49 +1,53 @@
-# ⚗️ ChemViz Pro - Advanced Chemical Equipment Analytics
+# ⚗️ ChemViz Pro - Industrial Equipment Analytics
 
-**ChemViz Pro** is a hybrid industrial control system designed to monitor, analyze, and simulate chemical plant equipment data. It features a unified **Django Backend** that simultaneously powers a **React.js Web Dashboard** and a **PyQt5 Desktop Controller**.
+**ChemViz Pro** is a hybrid industrial analytics platform designed to monitor chemical plant equipment. It utilizes a unified **Django Backend** to serve consistent analytics to two distinct interfaces: a **React.js Web Dashboard** for remote monitoring and a **PyQt5 Desktop Controller** for on-site operators.
 
 ---
 
 ## 🚀 Key Features
 
 ### 1. Hybrid Architecture
-- **Single Source of Truth:** A robust Django REST API serves data to both Web and Desktop clients in real-time.
-- **Cross-Platform:** Access analytics via a web browser (remote monitoring) or a native desktop app (control room station).
+- **Single Source of Truth:** A robust Django REST API processes data once and serves it to both Web and Desktop clients simultaneously.
+- **Cross-Platform:** Seamlessly switch between the browser-based dashboard and the native desktop application.
 
 ### 2. 🧠 Smart Health Engine
-- **Predictive Scoring:** Automatically calculates a "Health Score" (0-100%) for every equipment unit based on sensor deviations.
-- **Maintenance AI:** Algorithmic logic determines specific repairs (e.g., *"Flush Coolant"* vs. *"Release Valve"*) based on failure patterns.
-- **Critical Alerts:** Auto-detection of safety violations (Pressure > 85 psi, Temp > 80°C).
+- **Algorithmic Scoring:** A custom logic engine calculates a **Health Score (0-100%)** for every unit based on real-time sensor deviations (Pressure, Temperature, Flowrate).
+- **Maintenance AI:** Automatically categorizes equipment status and recommends specific actions (e.g., *"Urgent Repair"* vs. *"Routine Check"*).
 
-### 3. 📡 Live Sensor Simulation (Desktop Exclusive)
-- **Real-Time Feed:** Replays historical CSV datasets as a live sensor stream (1 reading/sec).
-- **Industrial Interface:** Features digital LCD readouts, live telemetry graphs, and a scrolling system terminal.
+### 3. 💻 Modern Web Dashboard
+- **Equipment Explorer:** A responsive, searchable table to filter through thousands of equipment units.
+- **Visual Analytics:** Interactive charts visualize equipment distribution and type composition.
+- **Critical Alerts:** Automatic flagging of "Red Status" units (Health < 50%).
 
-### 4. 📊 Advanced Visualization
-- **Correlation Matrix:** Heatmap visualization to detect relationships between Pressure, Temperature, and Flowrate.
-- **Interactive Explorer:** Searchable and filterable equipment inventory with status badges.
-- **PDF Reporting:** Generates professional maintenance reports with "Red Alert" sections for critical failures.
+### 4. 🖥️ Native Desktop Controller
+- **Professional UI:** A clean, "Modern Light" interface designed for control rooms, featuring native progress bars and status indicators.
+- **Health Monitor:** A dedicated grid view to track the live health status of all active assets.
+- **Synchronized Data:** Instantly reflects data uploads made via the web interface.
+
+### 5. 📄 Automated Reporting
+- **PDF Export:** Generates professional maintenance reports with timestamped summaries.
+- **Action Schedules:** Automatically compiles a list of "Critical Actions" for maintenance teams.
 
 ---
 
 ## 🛠️ Tech Stack
 
-### **Backend (The Brain)**
+### **Backend (The Core)**
 - **Framework:** Django 5.0 + Django REST Framework
 - **Data Processing:** Pandas, NumPy
 - **Reporting:** ReportLab (PDF Generation)
-- **Database:** SQLite (Dev) / PostgreSQL (Prod ready)
+- **Database:** SQLite (Dev)
 
-### **Web Frontend (The Dashboard)**
-- **Framework:** React.js (Create React App)
-- **Charting:** Chart.js, React-Chartjs-2
-- **Styling:** Modern CSS3, Glassmorphism UI
+### **Web Frontend (Remote View)**
+- **Framework:** React.js
+- **Styling:** CSS3 (Glassmorphism & Modern UI)
+- **Charting:** Chart.js
 - **Networking:** Axios
 
-### **Desktop Frontend (The Controller)**
+### **Desktop Frontend (Operator View)**
 - **Framework:** PyQt5 (Python Bindings for Qt)
 - **Plotting:** Matplotlib Integration
-- **Theme:** Clean Enterprise Mode / Dark Industrial Mode
+- **Theme:** Custom QSS (Modern Light Enterprise Theme)
 
 ---
 
@@ -54,7 +58,7 @@
 - Node.js & npm
 
 ### 1. Backend Setup
-The backend must be running for either frontend to work.
+The backend must be running for the system to function.
 ```bash
 # Clone the repository
 git clone [https://github.com/YOUR_USERNAME/chemical-equipment-visualizer.git](https://github.com/YOUR_USERNAME/chemical-equipment-visualizer.git)
@@ -65,12 +69,12 @@ python -m venv venv
 source venv/bin/activate  # On Windows: .\venv\Scripts\activate
 
 # Install dependencies
-pip install django djangorestframework pandas matplotlib pyqt5 requests reportlab django-cors-headers
+pip install -r backend/requirements.txt
 
 # Run Migrations & Start Server
 cd backend
 python manage.py migrate
-python manage.py runserver﻿# chemical-equipment-visualizer
+python manage.py runserver
 ```
 
 ### 2. Web Application Setup
@@ -99,48 +103,38 @@ python main.py
 
 ```
 
-### 📖 Usage Guide
+📖 Usage Guide
+Step 1: Data Ingestion
+Launch either the Web or Desktop app.
 
-### Step 1: Ingest Data
-**Launch the Web or Desktop app.**
+Click "Upload Dataset" and select your CSV file (Schema: Equipment Name, Type, Flowrate, Pressure, Temperature).
 
-**Upload a CSV file (Sample format: Equipment Name, Type, Flowrate, Pressure, Temperature).**
+The system will validate columns and process the health scores immediately.
 
-**The system will validate the schema and reject corrupt files.**
+Step 2: Monitor Health
+Web: Use the "Equipment Explorer" tab to search for specific pumps or valves.
 
-### Step 2: Analyze Risks
-**Switch to the "Health Monitor" tab.**
+Desktop: Switch to the "Health Monitor" tab to see a native list with color-coded progress bars (Green/Orange/Red).
 
-**Identify equipment with Red Health Bars (< 50%).**
+Step 3: Export Documentation
+Click "Export PDF Report" on either platform.
 
-**Read the "Action Required" column to see the AI-recommended repair.**
+The system will download a detailed PDF containing the executive summary and required maintenance actions.
 
-### Step 3: Run Simulation (Desktop)
-**Go to the "Real-Time Sensors" tab.**
-
-**Click ▶ Start Live Feed.**
-
-**Watch the LCD panels and Live Graph update in real-time as the system "replays" the dataset.**
-
-### Step 4: Export Report
-**Click "Download PDF Report".**
-
-**The generated PDF includes a timestamped executive summary, a list of critical alerts, and a full maintenance schedule.**
 
 ### 📂 Project Structure
 ```bash
 chemical-equipment-visualizer/
-├── backend/                # Django Project
-│   ├── api/                # REST API Logic (Views, Models, Serializers)
-│   ├── core/               # Settings & URL Config
-│   └── uploads/            # Temporary CSV storage
-├── web_frontend/           # React.js Project
-│   ├── src/                # Components, CSS, & Logic
-│   └── public/             # Static Assets
-├── desktop_frontend/       # PyQt5 Project
-│   └── main.py             # Main Application Entry Point
-├── .gitignore              # Git Exclusion Rules
+├── backend/                # Django Project & REST API
+│   ├── api/                # Business Logic (Health Engine)
+│   └── uploads/            # Temporary File Storage
+├── web_frontend/           # React.js Dashboard
+│   ├── src/                # Components & CSS
+│   └── public/             # Assets
+├── desktop_frontend/       # PyQt5 Application
+│   └── main.py             # Desktop Entry Point
 └── README.md               # Documentation
 ```
 ### Developed for FOSSEE Internship Submission 2026
+
 
